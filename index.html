@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokeapi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<button id="apiButton">Cargar todos los Pokémon! </button>
+
+<div id="search-container" style="text-align: center; margin-bottom: 20px;">
+    <input type="number" id="pokemonIdInput" placeholder="Ingresa ID del Pokémon...">
+    <button id="searchByIdButton" placeholder="Ingresa ID del Pokemon">Buscar por ID</button>
+</div>
+
+<div id="controls">
+    <button id="prevButton">Anterior</button>
+    <select id="typeFilter">
+        <option value="all">Todos los tipos</option>
+        <option value="fire">Fuego</option>
+        <option value="water">Agua</option>
+        <option value="grass">Planta</option>
+        <option value="electric">Eléctrico</option>
+        <option value="normal">Normal</option>
+        <option value="rock">Roca</option>
+        <option value="ghost">Fantasma</option>
+        <option value="fighting">Luchador</option>
+        <option value="flying">Volador</option>
+        <option value="poison">Venenoso</option>
+        <option value="ground">Terrestre</option>
+        <option value="bug">Insecto</option>
+        <option value="steel">Acero</option>
+        <option value="psychic">Psiquico</option>
+        <option value="ice">Hielo</option>
+        <option value="dragon">Dragón</option>
+        <option value="dark">Oscuro</option>
+        <option value="fairy">Hada</option>
+        <option value="stellar">Estelar</option>
+        <option value="unknown">Desconocido</option>
+    </select>
+    <button id="nextButton">Siguiente</button>
+</div>
+
+<p id="counterDisplay"></p>
+
+<div id="pokemonContainer"></div>
+
+
+
+   <script src="index.js"></script>
+</body>
+</html>
+
+<!--
+ESTO FUNCIONA DE MARAVILLA, PERO VOY A INTENTAR HACER EL CODIGO COMPLETO,
+EN CASO DE FALLAR, DESCOMENTAR ESTO JUNTO AL INDEX.js
+<button id="apiButton">Llamar API</button>
+<p id="apiData" ></p>
+
+<p id="nombrePokemon"></p>
+<p id="idPokemon"></p>
+<p id="base_experience"></p>
+<img id="fotoPokemon" src="" alt="Imagen del Pokémon">
+-->

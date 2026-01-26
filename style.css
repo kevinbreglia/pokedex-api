@@ -1,0 +1,91 @@
+body{
+    /* La URL de la foto de internet */
+    background-image: url('https://img.freepik.com/vector-gratis/efecto-zoom-fondo-gradiente_23-2149751055.jpg?semt=ais_hybrid&w=740&q=80');
+
+    /* Esto hace que la imagen no se repita como un mosaico */
+    background-repeat: no-repeat;
+
+    /* Esto centra la imagen siempre */
+    background-position: center;
+
+    /* Esto hace que la imagen cubra todo el espacio sin deformarse */
+    background-size: cover;
+
+    /* Esto evita que el fondo se mueva cuando haces scroll */
+    background-attachment: fixed;
+}
+
+#pokemonContainer {
+    display: flex;
+    flex-wrap: wrap; /* Para que los pokemones bajen a la siguiente línea si no caben */
+    justify-content: center;
+    gap: 20px; /* Espacio entre tarjetas */
+    padding: 20px;
+}
+
+/* La tarjeta que definiste en el JS */
+.pokemon-card {
+    border: 2px solid #3b4cca; /* Azul Pokémon */
+    border-radius: 15px; /* Bordes redondeados */
+    padding: 15px;
+    width: 180px;
+    text-align: center;
+    background-color: #f0f0f0;
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.1); /* Una sombrita suave */
+    transition: transform 0.2s; /* Para que la animación sea suave */
+}
+
+/* Efecto divertido: cuando pases el mouse, la tarjeta crece */
+.pokemon-card:hover {
+    transform: scale(1.05);
+    background-color: #fff;
+    border-color: #ffde00; /* Amarillo Pokémon */
+}
+
+.pokemon-card img {
+    width: 120px;
+    height: 120px;
+}
+
+.pokemon-name {
+    text-transform: capitalize; /* Pone la primera letra en mayúscula automáticamente */
+    color: #333;
+}
+
+#apiButton{
+    display: block;    /* Ocupa todo el ancho disponible */
+    margin: 20px auto; /* Arriba/Abajo 20px, Izquierda/Derecha automático */
+    display: flex;
+    justify-content: center;
+    background-color: #2db0d7;
+    color: #ffde00;
+    font-size: 30px;
+    padding: 15px;
+    border-radius: 50px;
+}
+
+#controls{
+    display: flex;
+    justify-content: center;
+}
+/*
+#pokemonIdInput{
+    border: solid black 1px;
+    width: 109px;
+    height: 20px;
+    border-radius: 8px;
+    padding-left: 12px;
+
+}
+
+#searchByIdButton{
+    color: white;
+    background-color: #5c82e3;
+    width: 25px;
+    height: 25px;
+    font-size: 13px;
+    font-weight: bold;
+    border: solid #5c5151 1px;
+    border-radius: 7px;
+}
+    */
