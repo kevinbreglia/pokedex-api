@@ -9,18 +9,91 @@ const typeFilter = document.getElementById('typeFilter');
 
 const counterDisplay = document.getElementById('counterDisplay');
 
-const pokemonIdInput = document.getElementById('pokemonIdInput');
-const searchByIdButton = document.getElementById('searchByIdButton');
+const pokemonSearchInput = document.getElementById('pokemonSearchInput');
+const searchButton = document.getElementById('searchButton');
 
 let offset = 0; //punto de inicio
 const limit = 50; // Cantidad por pagina
 
+const performSearch = async () => {
+    const query = pokemonSearchInput.value.toLowerCase().trim(); // Pasamos a minúscula
 
+    if(!query) return;
+
+    pokemonContainer.innerHTML = 'Buscando...';
+    counterDisplay.innerText = '';
+
+    try 
+    {
+        // 1. Intentamos buscar por coincidencia exacta (ID o Nombre completo)
+        const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${query}`);
+        
+        if (res.ok) {
+            const info = await res.json();
+            renderSingleCard(info); // Función auxiliar para no repetir código
+
+            //verificamos si la consulta era un numero o texto
+            const isNumber = !isNaN(query);
+            const textoBusqueda = isNumber ? `ID: ${query}` : `el nombre: "${query.toUpperCase()}"`;
+            
+            // Personalizamos el mensaje
+            counterDisplay.innerText = `Mostrando resultado para Pokemón con ${textoBusqueda}`;
+            counterDisplay.style.cssText = "text-align: center; display: block; margin: 20px auto; color: white; font-weight: bold;";
+
+        } else {
+            // Pedimos una lista grande para filtrar
+            const listRes = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=500`);
+            const listData = await listRes.json();
+
+            // Filtramos los nombres que contienen lo que el usuario escribió
+            const matches = listData.results.filter(p => p.name.includes(query));
+
+
+            if (matches.length > 0) {
+                pokemonContainer.innerHTML = ''; // Limpiamos el "Buscando..."
+                // Traemos el detalle de los primeros (máximo 5 para no saturar)
+                for (let i = 0; i < Math.min(matches.length, 100); i++) {
+                    const detailRes = await fetch(matches[i].url);
+                    const detailInfo = await detailRes.json();
+                    renderSingleCard(detailInfo, true); // true para que sume y no borre
+                }
+                counterDisplay.innerText = `Se encontraron ${matches.length} coincidencias para "${query}"`;
+                counterDisplay.style.cssText = "text-align: center; display: block; margin: 20px auto; color: white;";
+            } else {
+                pokemonContainer.innerHTML = `<p style="color:white; text-align:center; ">No se encontró nada con "${query}"</p>`;
+            }
+        }
+        } catch (e) 
+        {
+            console.error("Error en búsqueda:", e);
+        }
+};
+
+// Función auxiliar para dibujar la card (para no repetir código)
+const renderSingleCard = (info, append = false) => 
+    {
+        const tiposTexto = info.types.map(t => t.type.name).join(', ').toUpperCase();
+        const card = `
+            <div class="pokemon-card">
+                <img src="${info.sprites.front_default}" alt="${info.name}">
+                <p><strong>ID: </strong>${info.id}</p>
+                <p><strong>NOMBRE: </strong>${info.name.toUpperCase()}</p>
+                <p><strong>TIPO: </strong>${tiposTexto}</p>
+                <p><strong>EXP: </strong>${info.base_experience}</p>
+            </div>
+        `;
+        if (append) {
+            pokemonContainer.innerHTML += card;
+        } else {
+            pokemonContainer.innerHTML = card;
+        }
+        
+};
 
 
 
 const searchPokemonById = async () => {
-    const id = pokemonIdInput.value;
+    const id = pokemonSearchInput.value;
 
     //validamos que el usuario  haya escrito algo
     if(!id){
@@ -158,7 +231,12 @@ typeFilter.addEventListener('change', () => {
     callAPI();
 });
 
-searchByIdButton.addEventListener('click', searchPokemonById);
+searchButton.addEventListener('click', performSearch);
+
+// Extra: Buscar al presionar "Enter" sin hacer clic
+pokemonSearchInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') performSearch();
+});
 
 
 

@@ -1,4 +1,8 @@
-body{
+body{ display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    text-align: center;
     /* La URL de la foto de internet */
     background-image: url('https://img.freepik.com/vector-gratis/efecto-zoom-fondo-gradiente_23-2149751055.jpg?semt=ais_hybrid&w=740&q=80');
 
@@ -21,6 +25,8 @@ body{
     justify-content: center;
     gap: 20px; /* Espacio entre tarjetas */
     padding: 20px;
+    flex-grow: 1; /* Le dice: 'ocupa todo el espacio que sobre' */
+    width: 100%;
 }
 
 /* La tarjeta que definiste en el JS */
@@ -67,6 +73,35 @@ body{
 #controls{
     display: flex;
     justify-content: center;
+}
+
+.btn.btn-primary{
+    cursor: pointer;
+    border-radius: 50px;
+    height: 35px;
+    width: 35px;
+    border: 2px solid white;
+    color: white;
+    background-color: #639de8;
+}
+.btn.btn-primary:hover{
+    transform: scale(1.09);
+    cursor: pointer;
+    border-radius: 50px;
+    height: 35px;
+    width: 35px;
+    border: 3px solid #639de8;
+    color: #639de8;
+    background-color: white
+}
+
+footer p {
+    color: white;
+    margin: 0;
+    font-weight: bold;
+    letter-spacing: 1px;
+    opacity: 0.8;
+    margin-bottom: 30px;
 }
 /*
 #pokemonIdInput{
